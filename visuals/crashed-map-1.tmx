@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.5" tiledversion="1.7.1" orientation="orthogonal" renderorder="right-down" width="1" height="1" tilewidth="2040" tileheight="1212" infinite="0" nextlayerid="3" nextobjectid="5">
+ <editorsettings>
+  <export target="crashed-map-1.json" format="json"/>
+ </editorsettings>
+ <tileset firstgid="1" name="project-elite-map" tilewidth="2040" tileheight="1212" tilecount="1" columns="1">
+  <image source="project-elite-03.png" width="2040" height="1212"/>
+ </tileset>
+ <layer id="1" name="Background" width="1" height="1">
+  <data encoding="csv">
+1
+</data>
+ </layer>
+ <objectgroup id="2" name="Grid">
+  <object id="1" name="point" x="68.2353" y="103.529">
+   <point/>
+  </object>
+  <object id="4" name="point" x="1540" y="740">
+   <point/>
+  </object>
+ </objectgroup>
+</map>
