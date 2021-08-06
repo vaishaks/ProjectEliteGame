@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.5" tiledversion="1.7.1" orientation="orthogonal" renderorder="right-down" width="1" height="1" tilewidth="4100" tileheight="2475" infinite="0" nextlayerid="3" nextobjectid="10">
+ <editorsettings>
+  <export target="../game/src/assets/crashed-spaceship-map.json" format="json"/>
+ </editorsettings>
+ <tileset firstgid="1" name="crashed-spaceship-map-tileset" tilewidth="4100" tileheight="2475" tilecount="1" columns="1">
+  <image source="crashed-spaceship-map-v3.png" width="4100" height="2475"/>
+ </tileset>
+ <layer id="1" name="Background" width="1" height="1">
+  <data encoding="csv">
+1
+</data>
+ </layer>
+ <objectgroup id="2" name="Grid">
+  <object id="1" name="squares" x="139" y="28" width="251" height="249"/>
+  <object id="2" name="squares" x="2965" y="1643" width="235" height="262"/>
+  <object id="3" name="squares" x="897.333" y="282.667" width="249.333" height="265.333"/>
+  <object id="4" name="squares" x="1153.33" y="284" width="266.667" height="261.333"/>
+  <object id="5" name="squares" x="1154.67" y="549.333" width="268" height="262.667"/>
+  <object id="6" name="squares" x="1926.67" y="282.667" width="249.333" height="261.333"/>
+  <object id="7" name="squares" x="1925.33" y="549.333" width="250.667" height="260"/>
+  <object id="8" name="squares" x="2180" y="545.333" width="252" height="265.333"/>
+  <object id="9" name="squares" x="1154.67" y="1642.67" width="266.667" height="258.667"/>
+ </objectgroup>
+</map>
