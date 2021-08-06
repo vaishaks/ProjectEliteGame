@@ -15,7 +15,7 @@ export class LoadingScene extends Scene {
     preload(): void {
         this.load.baseURL = 'assets/';
         this.load.image({ key: 'project-elite-map-tiles', url: 'project-elite-03.png' });
-        this.load.image({ key: 'player-gherid', url: 'gherid-v3.png' });
+        this.load.image({ key: 'player-gherid', url: 'gherid-v4.png' });
         this.load.tilemapTiledJSON('project-elite-map', 'crashed-map-1.json');
     }
 
@@ -37,7 +37,7 @@ export class LoadingScene extends Scene {
 
         const ix = 1;
         this.player = this.add.sprite(gridPoints[ix].x*0.6, gridPoints[ix].y*0.6, 'player-gherid');
-        this.player.setScale(0.3);
+        this.player.setScale(0.35);
 
         console.log(gridPoints);
     }
