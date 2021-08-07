@@ -17,7 +17,7 @@ export const gameConfig: GameConfigExtended = {
     scale: {
         mode: Phaser.Scale.ScaleModes.NONE,
         width: window.innerWidth,
-        height: window.innerHeight,
+        height: window.innerHeight
     },
     physics: {
         default: 'arcade',
