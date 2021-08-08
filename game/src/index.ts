@@ -1,6 +1,6 @@
 import { Game, Types } from 'phaser';
 
-import { LoadingScene } from './scenes';
+import { NewGameScene, LoadingScene } from './scenes';
 
 declare global {
     interface Window {
@@ -13,7 +13,7 @@ export const gameConfig: GameConfigExtended = {
     title: 'Phaser game tutorial',
     type: Phaser.WEBGL,
     parent: 'game',
-    backgroundColor: '#564947',
+    backgroundColor: '#000',
     scale: {
         mode: Phaser.Scale.ScaleModes.NONE,
         width: window.innerWidth,
@@ -26,8 +26,7 @@ export const gameConfig: GameConfigExtended = {
         },
     },
     render: {
-        antialiasGL: false,
-        pixelArt: true,
+        antialiasGL: false
     },
     callbacks: {
         postBoot: () => {
@@ -39,7 +38,7 @@ export const gameConfig: GameConfigExtended = {
     audio: {
         disableWebAudio: false,
     },
-    scene: [LoadingScene],
+    scene: [NewGameScene, LoadingScene],
     winScore: 40
 };
 
