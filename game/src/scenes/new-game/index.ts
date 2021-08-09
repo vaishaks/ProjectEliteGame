@@ -15,7 +15,7 @@ export class NewGameScene extends Scene {
 
     preload(): void {
         this.load.baseURL = 'assets/'
-        this.load.image({ key: 'game-background', url: 'game-background-v1.png' });
+        this.load.image({ key: 'game-background', url: 'game-background-v2.png' });
         this.load.image({ key: 'new-game-btn', url: 'new-game-btn.png' });
         this.load.image({ key: 'new-game-btn-active', url: 'new-game-btn-active.png' });
         this.load.image({ key: 'join-game-btn', url:'join-game-btn.png' });
