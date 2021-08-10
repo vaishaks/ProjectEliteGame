@@ -94,6 +94,10 @@ const config = {
                 from: 'assets',
                 to: 'assets',
               },
+              {
+                from: 'web.config',
+                to: 'web.config'
+              }
             ],
           })
     ],
