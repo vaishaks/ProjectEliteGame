@@ -22,6 +22,6 @@
         "node_modules{,/**}",
         ".vscode{,/**}"
     ],
-    "appService.defaultWebAppToDeploy": "/subscriptions/1533bf80-8f24-4b2c-b0fd-5ef61309ea67/resourceGroups/projectelite/providers/Microsoft.Web/sites/projectelite",
     "appService.deploySubpath": "dist",
+    "appService.defaultWebAppToDeploy": "/subscriptions/1533bf80-8f24-4b2c-b0fd-5ef61309ea67/resourceGroups/projectelite/providers/Microsoft.Web/sites/projectelite-dev",
 }
