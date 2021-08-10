@@ -1,4 +1,5 @@
 import { Game, Types } from 'phaser';
+import RexUIPlugin from 'phaser3-rex-plugins/templates/ui/ui-plugin';
 
 import { NewGameScene, LoadingScene } from './scenes';
 
@@ -10,7 +11,7 @@ declare global {
 }
 
 export const gameConfig: GameConfigExtended = {
-    title: 'Phaser game tutorial',
+    title: 'Project: ELITE',
     type: Phaser.WEBGL,
     parent: 'game',
     backgroundColor: '#000',
@@ -33,6 +34,18 @@ export const gameConfig: GameConfigExtended = {
             window.sizeChanged();
         },
     },
+	dom: {
+        createContainer: true
+    },
+	plugins: {
+		scene: [
+			{
+				key: 'rexUI',
+				plugin: RexUIPlugin,
+				mapping: 'rexUI'
+			}
+		]
+    },        
     canvasStyle: `display: block; width: 100%; height: 100%;`,
     autoFocus: true,
     audio: {

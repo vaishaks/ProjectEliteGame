@@ -9,9 +9,10 @@
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack serve",
     "build": "cross-env NODE_ENV=production webpack --progress"
-  },  
+  },
   "dependencies": {
-    "phaser": "^3.55.2"
+    "phaser": "^3.55.2",
+    "phaser3-rex-plugins": "^1.1.58"
   },
   "devDependencies": {
     "@babel/core": "^7.14.8",
