@@ -33,8 +33,7 @@ export class LoadingScene extends Scene {
 
     private initMap(): void {
         this.map = this.make.tilemap({ key: 'crashed-spaceship-map', tileWidth: 4100, tileHeight: 2475 });
-        this.tileset = this.map.addTilesetImage('crashed-spaceship-map-tileset', 'crashed-spaceship-map'); 
-        console.log(window.innerHeight);
+        this.tileset = this.map.addTilesetImage('crashed-spaceship-map-tileset', 'crashed-spaceship-map');
         let xOffset = (window.innerWidth - 4100*0.3)/2;
         this.backgroundLayer = this.map.createLayer('Background', this.tileset, xOffset, 0);
         this.scaleNumber = 0.3;
