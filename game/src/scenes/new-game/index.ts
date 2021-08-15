@@ -1,5 +1,4 @@
 import { Scene, GameObjects, Game } from "phaser";
-import RexUIPlugin from 'phaser3-rex-plugins/templates/ui/ui-plugin.js';
 import { Textbox } from "../../../src/classes/ui/textbox";
 import { Button } from "../../../src/classes/ui/button";
 import { EliteScene } from "../elite";
@@ -7,11 +6,11 @@ import { EliteScene } from "../elite";
 export class NewGameScene extends EliteScene {
     private background!: GameObjects.Image;
     private scaleNumber: number;
-    private newGameBtn!:Button;
-    private joinGameBtn!:Button;
-    private nextBtn!:Button;
-    private nameTextBox!:Textbox;
-    private roomCodeTextBox!:Textbox;
+    private newGameBtn!: Button;
+    private joinGameBtn!: Button;
+    private nextBtn!: Button;
+    private nameTextBox!: Textbox;
+    private roomCodeTextBox!: Textbox;
 
     constructor() {
         super('new-game-scene');
@@ -28,7 +27,7 @@ export class NewGameScene extends EliteScene {
         this.load.image({ key: 'name-textbox', url: 'name-textbox.png' });
         this.load.image({ key: 'room-code-textbox', url: 'room-code-textbox.png' });
         this.load.image({ key: 'next-btn', url: 'next-btn.png' });
-        this.load.image({ key: 'next-btn-active', url: 'next-btn-active.png' });        
+        this.load.image({ key: 'next-btn-active', url: 'next-btn-active.png' });
     }
 
     create(): void {
@@ -40,11 +39,16 @@ export class NewGameScene extends EliteScene {
 
         // Place the new-game button relative to the center of the background.
         // We place the btn 30% above the center of the background.
-        this.newGameBtn = new Button(this, this.background.x, 
+        this.newGameBtn = new Button(
+            this,
+            this.background.x,
             this.background.y - (this.background.height / 2 * this.scaleNumber * 0.3),
-            'new-game-btn', 'new-game-btn-active', this.scaleNumber);
+            'new-game-btn',
+            'new-game-btn-active',
+            this.scaleNumber
+        );
         // When the new-game button is clicked, go to details screen.
-        this.newGameBtn.onClick( () => {
+        this.newGameBtn.onClick(() => {
             this.newGameBtn.setVisible(false);
             this.joinGameBtn.setVisible(false);
             this.nameTextBox.setVisible(true);
@@ -54,11 +58,16 @@ export class NewGameScene extends EliteScene {
 
         // Place the join-game button relative to the new-game button.
         // We want to place it below the join-game button and give it 0.5 button height as margin.
-        this.joinGameBtn = new Button(this, this.background.x, 
+        this.joinGameBtn = new Button(
+            this,
+            this.background.x,
             this.newGameBtn.button.y + (this.newGameBtn.button.height * this.scaleNumber),
-            'join-game-btn', 'join-game-btn-active', this.scaleNumber);
+            'join-game-btn',
+            'join-game-btn-active',
+            this.scaleNumber
+        );
         // When the join-game button is clicked, go to details screen.
-        this.joinGameBtn.onClick( () => {
+        this.joinGameBtn.onClick(() => {
             this.newGameBtn.setVisible(false);
             this.joinGameBtn.setVisible(false);
             this.nameTextBox.setVisible(true);
@@ -68,7 +77,7 @@ export class NewGameScene extends EliteScene {
 
         this.nameTextBox = new Textbox(
             this,
-            this.newGameBtn.button.x, 
+            this.newGameBtn.button.x,
             this.newGameBtn.button.y,
             'name-textbox',
             this.scaleNumber,
@@ -88,11 +97,16 @@ export class NewGameScene extends EliteScene {
 
         // Place the next button relative to the room code text box.
         // We want to place it below the room code text box and give it 2x textbox height as margin.
-        this.nextBtn = new Button(this, this.background.x, 
-            this.roomCodeTextBox.textBoxImage.y + (this.roomCodeTextBox.textBoxImage.height * this.scaleNumber)*2,
-            'next-btn', 'next-btn', this.scaleNumber);
+        this.nextBtn = new Button(
+            this,
+            this.background.x,
+            this.roomCodeTextBox.textBoxImage.y + (this.roomCodeTextBox.textBoxImage.height * this.scaleNumber) * 2,
+            'next-btn',
+            'next-btn',
+            this.scaleNumber
+        );
         // When the next button is clicked, start the game.
-        this.nextBtn.onClick( () => {
+        this.nextBtn.onClick(() => {
             this.scene.start('loading-scene');
         });
         this.nextBtn.setVisible(false);

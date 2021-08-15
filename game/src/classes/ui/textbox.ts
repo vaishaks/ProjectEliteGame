@@ -1,18 +1,17 @@
 import { GameObjects } from 'phaser';
 import BBCodeText from "phaser3-rex-plugins/plugins/bbcodetext";
-import RexUIPlugin from 'phaser3-rex-plugins/templates/ui/ui-plugin.js';
 import { EliteScene } from 'src/scenes';
 
 export class Textbox extends GameObjects.Layer {
 
     private _textBoxImage: GameObjects.Sprite;
-    private _textBox:  BBCodeText;
+    private _textBox: BBCodeText;
 
-    public get textBoxImage(){
+    public get textBoxImage(): GameObjects.Sprite {
         return this._textBoxImage;
     }
 
-    public get textBox(){
+    public get textBox(): BBCodeText {
         return this._textBox;
     }
 
@@ -37,7 +36,7 @@ export class Textbox extends GameObjects.Layer {
 
         // Phaser by default only lets you display/draw text. No editing.
         // We use the RexUI plugin to display editable text boxes on the canvas.
-        this._textBox = scene._rexUI.add.BBCodeText(
+        this._textBox = scene.rexUI.add.BBCodeText(
             x + (this._textBoxImage.width * scale) * textPositionFactor,
             this._textBoxImage.y,
             '',
@@ -49,7 +48,7 @@ export class Textbox extends GameObjects.Layer {
             }
         );
         this._textBox.setOrigin(0.5, 0.5);
-        scene._rexUI.add.textBox({
+        scene.rexUI.add.textBox({
             text: this._textBox
         });
         this._textBox.setInteractive();
@@ -57,7 +56,7 @@ export class Textbox extends GameObjects.Layer {
             const config = {
                 onTextChanged: this.textBoxOnTextChanged
             };
-            scene._rexUI.edit(this._textBox, config);
+            scene.rexUI.edit(this._textBox, config);
         });
 
         scene.add.existing(this);
@@ -69,4 +68,4 @@ export class Textbox extends GameObjects.Layer {
         textObject.text = text;
     }
 
-} 
+}

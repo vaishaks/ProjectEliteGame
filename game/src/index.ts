@@ -1,7 +1,7 @@
 import { Game, Types } from 'phaser';
 import RexUIPlugin from 'phaser3-rex-plugins/templates/ui/ui-plugin';
 
-import { NewGameScene, LoadingScene, EliteScene } from './scenes';
+import { NewGameScene, LoadingScene } from './scenes';
 
 declare global {
     interface Window {
@@ -51,7 +51,7 @@ export const gameConfig: GameConfigExtended = {
     audio: {
         disableWebAudio: false,
     },
-    scene: [NewGameScene, LoadingScene, EliteScene],
+    scene: [NewGameScene, LoadingScene],
     winScore: 40
 };
 
