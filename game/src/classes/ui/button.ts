@@ -50,7 +50,7 @@ export class Button extends GameObjects.Layer {
     /**
      * @param  {Function} fn -  function you want to execute when button is clicked
      */
-    onClick(fn: Function) {
+    onClick(fn: Function): void {
         this._button.on('pointerdown', fn);
     }
 

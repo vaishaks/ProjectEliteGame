@@ -64,7 +64,7 @@ export class Textbox extends GameObjects.Layer {
         this.add(this._textBox);
     }
 
-    private textBoxOnTextChanged(textObject: any, text: string) {
+    private textBoxOnTextChanged(textObject: any, text: string): void {
         textObject.text = text;
     }
 
