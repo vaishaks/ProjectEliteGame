@@ -1,0 +1,70 @@
+import { GRID_ADJACENCY } from '../../shared/constants';
+import { GridSquare } from '../../shared/types';
+
+/**
+ * Manages the 8 grid squares from the Tiled map data,
+ * including adjacency lookups and coordinate calculations.
+ */
+export class GridManager {
+    private squares: Map<number, GridSquare> = new Map();
+    private mapScale: number;
+    private xOffset: number;
+
+    constructor(mapScale: number, xOffset: number) {
+        this.mapScale = mapScale;
+        this.xOffset = xOffset;
+    }
+
+    /**
+     * Initialize grid squares from Tiled map object points.
+     */
+    loadFromObjectPoints(points: Array<{ id: number; x: number; y: number; width: number; height: number }>): void {
+        for (const point of points) {
+            this.squares.set(point.id, {
+                id: point.id,
+                x: point.x,
+                y: point.y,
+                width: point.width,
+                height: point.height,
+            });
+        }
+    }
+
+    /**
+     * Get the screen-space center coordinates for a grid square.
+     */
+    getSquareCenter(id: number): { x: number; y: number } | null {
+        const square = this.squares.get(id);
+        if (!square) return null;
+        return {
+            x: (square.x + square.width / 2) * this.mapScale + this.xOffset,
+            y: (square.y + square.height / 2) * this.mapScale,
+        };
+    }
+
+    /**
+     * Get the screen-space bounds for a grid square (for hit testing / highlighting).
+     */
+    getSquareBounds(id: number): { x: number; y: number; width: number; height: number } | null {
+        const square = this.squares.get(id);
+        if (!square) return null;
+        return {
+            x: square.x * this.mapScale + this.xOffset,
+            y: square.y * this.mapScale,
+            width: square.width * this.mapScale,
+            height: square.height * this.mapScale,
+        };
+    }
+
+    getAdjacentSquares(id: number): number[] {
+        return GRID_ADJACENCY[id] || [];
+    }
+
+    isAdjacent(from: number, to: number): boolean {
+        return this.getAdjacentSquares(from).includes(to);
+    }
+
+    getAllSquareIds(): number[] {
+        return Array.from(this.squares.keys());
+    }
+}

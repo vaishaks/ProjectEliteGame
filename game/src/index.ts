@@ -51,7 +51,7 @@ export const gameConfig: GameConfigExtended = {
     audio: {
         disableWebAudio: false,
     },
-    scene: [NewGameScene, LoadingScene],
+    scene: [NewGameScene, SelectCharacterScene, LoadingScene],
     winScore: 40
 };
 

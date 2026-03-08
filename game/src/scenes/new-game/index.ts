@@ -1,7 +1,8 @@
-import { Scene, GameObjects, Game } from "phaser";
-import { Textbox } from "../../../src/classes/ui/textbox";
-import { Button } from "../../../src/classes/ui/button";
+import { GameObjects } from "phaser";
+import { Textbox } from "../../classes/ui/textbox";
+import { Button } from "../../classes/ui/button";
 import { EliteScene } from "../elite";
+import { socketService } from "../../services/socket-service";
 
 export class NewGameScene extends EliteScene {
     private background!: GameObjects.Image;
@@ -11,6 +12,7 @@ export class NewGameScene extends EliteScene {
     private nextBtn!: Button;
     private nameTextBox!: Textbox;
     private roomCodeTextBox!: Textbox;
+    private isJoining: boolean = false;
 
     constructor() {
         super('new-game-scene');
@@ -49,6 +51,7 @@ export class NewGameScene extends EliteScene {
         );
         // When the new-game button is clicked, go to details screen.
         this.newGameBtn.onClick(() => {
+            this.isJoining = false;
             this.newGameBtn.setVisible(false);
             this.joinGameBtn.setVisible(false);
             this.nameTextBox.setVisible(true);
@@ -68,6 +71,7 @@ export class NewGameScene extends EliteScene {
         );
         // When the join-game button is clicked, go to details screen.
         this.joinGameBtn.onClick(() => {
+            this.isJoining = true;
             this.newGameBtn.setVisible(false);
             this.joinGameBtn.setVisible(false);
             this.nameTextBox.setVisible(true);
@@ -105,9 +109,27 @@ export class NewGameScene extends EliteScene {
             'next-btn',
             this.scaleNumber
         );
-        // When the next button is clicked, start the game.
-        this.nextBtn.onClick(() => {
-            this.scene.start('loading-scene');
+        // When the next button is clicked, connect to server and go to character select.
+        this.nextBtn.onClick(async () => {
+            const playerName = this.nameTextBox.textBox.text || 'Player';
+
+            try {
+                if (this.isJoining) {
+                    const roomCode = this.roomCodeTextBox.textBox.text;
+                    if (!roomCode) return;
+                    await socketService.joinRoom(roomCode.toUpperCase(), playerName);
+                } else {
+                    await socketService.createRoom(playerName);
+                }
+
+                this.scene.start('character-select-scene', {
+                    playerName,
+                    roomCode: socketService.roomCode,
+                    isHost: socketService.isHost,
+                });
+            } catch (err) {
+                console.error('Failed to connect:', err);
+            }
         });
         this.nextBtn.setVisible(false);
     }
