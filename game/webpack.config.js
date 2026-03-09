@@ -61,6 +61,13 @@ const config = {
 
     resolve: {
         extensions: ['.ts', '.js'],
+        alias: {
+            // Fix case-sensitivity bug in phaser3-rex-plugins audio imports
+            [path.resolve(__dirname, 'node_modules/phaser3-rex-plugins/plugins/audio/fade/fadeIn.js')]:
+                path.resolve(__dirname, 'node_modules/phaser3-rex-plugins/plugins/audio/fade/FadeIn.js'),
+            [path.resolve(__dirname, 'node_modules/phaser3-rex-plugins/plugins/audio/fade/fadeOut.js')]:
+                path.resolve(__dirname, 'node_modules/phaser3-rex-plugins/plugins/audio/fade/FadeOut.js'),
+        },
     },
 
     optimization: {
