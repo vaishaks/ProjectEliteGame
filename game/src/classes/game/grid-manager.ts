@@ -2,17 +2,19 @@ import { GRID_ADJACENCY } from '../../shared/constants';
 import { GridSquare } from '../../shared/types';
 
 /**
- * Manages the 8 grid squares from the Tiled map data,
+ * Manages the grid squares from the Tiled map data,
  * including adjacency lookups and coordinate calculations.
  */
 export class GridManager {
     private squares: Map<number, GridSquare> = new Map();
     private mapScale: number;
     private xOffset: number;
+    private yOffset: number;
 
-    constructor(mapScale: number, xOffset: number) {
+    constructor(mapScale: number, xOffset: number, yOffset: number = 0) {
         this.mapScale = mapScale;
         this.xOffset = xOffset;
+        this.yOffset = yOffset;
     }
 
     /**
@@ -38,7 +40,7 @@ export class GridManager {
         if (!square) return null;
         return {
             x: (square.x + square.width / 2) * this.mapScale + this.xOffset,
-            y: (square.y + square.height / 2) * this.mapScale,
+            y: (square.y + square.height / 2) * this.mapScale + this.yOffset,
         };
     }
 
@@ -50,7 +52,7 @@ export class GridManager {
         if (!square) return null;
         return {
             x: square.x * this.mapScale + this.xOffset,
-            y: square.y * this.mapScale,
+            y: square.y * this.mapScale + this.yOffset,
             width: square.width * this.mapScale,
             height: square.height * this.mapScale,
         };

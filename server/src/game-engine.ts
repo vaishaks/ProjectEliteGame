@@ -48,6 +48,9 @@ function bfsDistance(from: number, to: number): number {
 }
 
 export class GameEngine {
+    // Track which players have sent PLAYER_READY per room
+    private readyPlayers: Map<string, Set<string>> = new Map();
+
     constructor(
         private io: Server,
         private roomManager: RoomManager,
@@ -62,11 +65,33 @@ export class GameEngine {
         room.state.roundNumber = 1;
         room.state.roundTimer = ROUND_DURATION_MS;
 
+        // Initialize ready tracking for this room
+        this.readyPlayers.set(roomCode, new Set());
+
+        // Emit GAME_STARTED — client will transition to game scene,
+        // then send PLAYER_READY when create() finishes.
         this.io.to(roomCode).emit(SocketEvent.GAME_STARTED, {
             gameState: room.state,
         });
 
-        this.startPlayerRound(room);
+        // Do NOT call startPlayerRound here — wait for all players to be ready.
+    }
+
+    handlePlayerReady(playerId: string): void {
+        const room = this.roomManager.getRoomByPlayerId(playerId);
+        if (!room) return;
+
+        const readySet = this.readyPlayers.get(room.code);
+        if (!readySet) return;
+
+        readySet.add(playerId);
+        console.log(`Player ${playerId} ready (${readySet.size}/${room.state.players.length})`);
+
+        // When all players are ready, start the first round
+        if (readySet.size >= room.state.players.length) {
+            this.readyPlayers.delete(room.code);
+            this.startPlayerRound(room);
+        }
     }
 
     private startPlayerRound(room: Room): void {

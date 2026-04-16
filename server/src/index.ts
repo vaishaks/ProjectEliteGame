@@ -22,7 +22,11 @@ const io = new Server(server, {
 const roomManager = new RoomManager();
 const gameEngine = new GameEngine(io, roomManager);
 
-app.get('/', (_req, res) => {
+// Serve the game client static files
+import path from 'path';
+app.use(express.static(path.join(__dirname, '../../game/dist')));
+
+app.get('/api/status', (_req, res) => {
     res.json({ status: 'Project ELITE server running' });
 });
 
@@ -32,9 +36,11 @@ io.on('connection', (socket) => {
     socket.on(SocketEvent.CREATE_ROOM, (data: { playerName: string }) => {
         const room = roomManager.createRoom(socket.id, data.playerName);
         socket.join(room.code);
+        // Include players array so the host can populate their own player list
         socket.emit(SocketEvent.ROOM_CREATED, {
             roomCode: room.code,
             playerId: socket.id,
+            players: room.state.players,
         });
         console.log(`Room ${room.code} created by ${data.playerName}`);
     });
@@ -51,8 +57,8 @@ io.on('connection', (socket) => {
             playerId: socket.id,
             players: room.state.players,
         });
-        // Notify other players
-        socket.to(room.code).emit(SocketEvent.PLAYER_JOINED, {
+        // Notify ALL players (including host) about the updated player list
+        io.to(room.code).emit(SocketEvent.PLAYER_JOINED, {
             players: room.state.players,
         });
         console.log(`${data.playerName} joined room ${room.code}`);
@@ -75,6 +81,10 @@ io.on('connection', (socket) => {
         if (!room || room.hostId !== socket.id) return;
 
         gameEngine.startGame(room.code);
+    });
+
+    socket.on(SocketEvent.PLAYER_READY, () => {
+        gameEngine.handlePlayerReady(socket.id);
     });
 
     socket.on(SocketEvent.PLAYER_MOVE, (data: { targetGrid: number }) => {

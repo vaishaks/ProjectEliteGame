@@ -64,6 +64,7 @@ export enum SocketEvent {
     STATE_UPDATE = 'state_update',
     ENEMY_PHASE = 'enemy_phase',
     GAME_OVER = 'game_over',
+    PLAYER_READY = 'player_ready',
     DISCONNECT = 'disconnect',
     ERROR = 'error',
 }

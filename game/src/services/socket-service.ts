@@ -11,7 +11,7 @@ import {
     CharacterKey,
 } from '../shared/types';
 
-const SERVER_URL = 'http://localhost:3000';
+const SERVER_URL = window.location.origin;
 
 type StateUpdateCallback = (gameState: GameState) => void;
 type PlayersUpdateCallback = (players: Player[]) => void;
@@ -41,11 +41,11 @@ class SocketService {
         this.socket = null;
     }
 
-    createRoom(playerName: string): Promise<RoomCreatedPayload> {
+    createRoom(playerName: string): Promise<RoomCreatedPayload & { players: Player[] }> {
         this.connect();
         return new Promise((resolve, reject) => {
             this.socket!.emit(SocketEvent.CREATE_ROOM, { playerName });
-            this.socket!.once(SocketEvent.ROOM_CREATED, (data: RoomCreatedPayload) => {
+            this.socket!.once(SocketEvent.ROOM_CREATED, (data: RoomCreatedPayload & { players: Player[] }) => {
                 this._playerId = data.playerId;
                 this._roomCode = data.roomCode;
                 this._isHost = true;
@@ -79,6 +79,10 @@ class SocketService {
 
     startGame(): void {
         this.socket?.emit(SocketEvent.START_GAME);
+    }
+
+    sendPlayerReady(): void {
+        this.socket?.emit(SocketEvent.PLAYER_READY);
     }
 
     sendMove(targetGrid: number): void {

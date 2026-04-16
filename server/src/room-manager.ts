@@ -28,6 +28,8 @@ const INITIAL_ENEMIES: Array<{ type: 'runner' | 'biter' | 'shooter'; gridPositio
     { type: 'shooter', gridPosition: 6 },
     { type: 'shooter', gridPosition: 7 },
     { type: 'shooter', gridPosition: 8 },
+    { type: 'runner', gridPosition: 9 },
+    { type: 'biter', gridPosition: 2 },
 ];
 
 const ENEMY_HEALTH: Record<string, number> = {

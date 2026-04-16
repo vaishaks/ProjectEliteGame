@@ -63,6 +63,8 @@ export const INITIAL_ENEMY_SPAWNS: EnemySpawn[] = [
     { type: 'shooter', gridPosition: 6 },
     { type: 'shooter', gridPosition: 7 },
     { type: 'shooter', gridPosition: 8 },
+    { type: 'runner', gridPosition: 9 },
+    { type: 'biter', gridPosition: 2 },
 ];
 
 // === Server Config ===
